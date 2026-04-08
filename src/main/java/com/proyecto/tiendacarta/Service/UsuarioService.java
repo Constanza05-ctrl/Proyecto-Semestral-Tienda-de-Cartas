@@ -2,6 +2,7 @@ package com.proyecto.tiendacarta.Service;
 import com.proyecto.tiendacarta.Model.Usuario;
 import com.proyecto.tiendacarta.Repository.UsuarioRepositoy;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,9 +17,11 @@ public class UsuarioService {
         this.usuarioRepositoy = usuarioRepositoy;
     }
     /*crear */
-    public Usuario guardarUsuario(Usuario usuario){
+    /*aqui realizar una validacion para que los correos no se reppitan  */
+    public Usuario guardarUsuario(Usuario usuario) {
         return usuarioRepositoy.save(usuario);
     }
+
 
     /*Listar */
     public List<Usuario> obtenerUsuarios(){

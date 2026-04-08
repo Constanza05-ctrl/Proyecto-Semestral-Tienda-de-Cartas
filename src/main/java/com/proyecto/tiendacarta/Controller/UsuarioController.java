@@ -2,9 +2,9 @@ package com.proyecto.tiendacarta.Controller;
 import com.proyecto.tiendacarta.Model.Usuario;
 import com.proyecto.tiendacarta.Service.UsuarioService;
 
+import jakarta.validation.Valid;
 
-
-
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +32,7 @@ public class UsuarioController {
 
 
     @PostMapping
-    public Usuario crearLibro(@RequestBody Usuario usuario) {
+    public Usuario crearUsuario(@Valid @RequestBody Usuario usuario) {
         return usuarioService.guardarUsuario(usuario);
     }
 
@@ -43,13 +43,12 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> obtenerUsuarioPorId(@PathVariable Long id){
-
+    public ResponseEntity<?> obtenerUsuarioPorId( @PathVariable Long id){
         Optional<Usuario> usuario = usuarioService.obtenerPorId(id);
         if(usuario.isPresent()){
             return ResponseEntity.ok(usuario.get());
         } else{
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("el prestamo solicitado no existe");
         }
 
 
@@ -58,7 +57,7 @@ public class UsuarioController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> actualizarUsuario(@PathVariable Long id, @RequestBody Usuario detallesUsuario) {
+    public ResponseEntity<Usuario> actualizarUsuario( @PathVariable Long id, @Valid @RequestBody Usuario detallesUsuario) {
         Usuario usuarioActualizado = usuarioService.actualizarUsuario(id, detallesUsuario);
         if (usuarioActualizado != null) {
             return ResponseEntity.ok(usuarioActualizado); 

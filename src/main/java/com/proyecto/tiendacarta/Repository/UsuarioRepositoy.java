@@ -8,6 +8,7 @@ import com.proyecto.tiendacarta.Model.Usuario;
 
 @Repository
 public interface UsuarioRepositoy extends JpaRepository<Usuario,Long>{
+    //nos ayuda la validacion del servico
 
     
 }
